@@ -18,10 +18,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_134822) do
   end
 
   create_table "country_users", id: false, force: :cascade do |t|
-    t.integer "c_id"
     t.integer "u_id"
+    t.integer "c_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["c_id"], name: "index_country_users_on_c_id"
+    t.index ["u_id"], name: "index_country_users_on_u_id"
   end
 
   create_table "users", primary_key: "id1", force: :cascade do |t|
@@ -30,4 +32,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_134822) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "country_users", "countries", column: "c_id", primary_key: "id2"
+  add_foreign_key "country_users", "users", column: "u_id", primary_key: "id1"
 end
